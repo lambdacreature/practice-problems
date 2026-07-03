@@ -1,3 +1,5 @@
+// problem: https://leetcode.com/problems/longest-palindromic-substring/description/
+
 function longestPalindrome(s: string): string {
   const longestEven = longestEvenPalindrome(s);
   const longestOdd = longestOddPalindrome(s);

@@ -1,3 +1,5 @@
+// problem: https://leetcode.com/problems/unique-paths/description/
+
 function uniquePaths(m: number, n: number): number {
   const dp: number[][] = [];
   for (let i = 0; i < m; i++) {

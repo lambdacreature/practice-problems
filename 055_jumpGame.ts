@@ -1,3 +1,5 @@
+// problem: https://leetcode.com/problems/jump-game/description/
+
 function canJump(nums: number[]): boolean {
   const reachable: boolean[] = [];
   for (const _ of nums) {

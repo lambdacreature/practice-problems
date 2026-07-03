@@ -1,3 +1,5 @@
+// problem: https://leetcode.com/problems/subarray-product-less-than-k/description/
+
 function numSubarrayProductLessThanK(nums: number[], k: number): number {
   const dp: number[][] = [[]];
 

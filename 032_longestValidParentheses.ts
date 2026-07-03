@@ -1,3 +1,5 @@
+// problem: https://leetcode.com/problems/longest-valid-parentheses/description/
+
 function locateStarts(s: string): number[] {
   const starts: number[] = [];
   for (const _ of s) {

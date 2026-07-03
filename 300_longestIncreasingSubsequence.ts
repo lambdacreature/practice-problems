@@ -1,3 +1,5 @@
+// problem: https://leetcode.com/problems/longest-increasing-subsequence/description/
+
 function lengthOfLIS(nums: number[]): number {
   // dp[i] = tamaño de la LIS que tiene
   // nums[i] como su último elemento

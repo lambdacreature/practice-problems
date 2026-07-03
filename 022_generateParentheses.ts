@@ -1,3 +1,5 @@
+// problem: https://leetcode.com/problems/generate-parentheses/description/
+
 function generateParenthesis(n: number): string[] {
   const canOpen = n;
   const canClose = 0;

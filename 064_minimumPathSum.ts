@@ -1,3 +1,5 @@
+// problem: https://leetcode.com/problems/minimum-path-sum/description/
+
 function minPathSum(grid: number[][]): number {
   const m = grid.length;
   const n = grid[0].length;
