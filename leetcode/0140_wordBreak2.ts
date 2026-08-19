@@ -1,12 +1,16 @@
-// problem: https://leetcode.com/problems/word-break/description/
+// problem: https://leetcode.com/problems/word-break-ii/description/
 // solver:  https://github.com/lambdacreature/
 
-function wordBreak(s: string, wordDict: string[]): boolean {
+function wordBreak(s: string, wordDict: string[]): string[] {
   // dp[i] is true if s[0..i] can be segmented
   const dp: boolean[] = [];
 
+  // sentences[i] stores all sentences that have s[i] as the last character of ther last word
+  const sentences: string[][] =[];
+
   for (let i = 0; i < s.length; i++) {
     dp.push(false);
+    sentences.push([]);
 
     for (const word of wordDict) {
       const prevEnd = i - word.length;
@@ -23,6 +27,7 @@ function wordBreak(s: string, wordDict: string[]): boolean {
 
         if (matches) {
           dp[i] = true;
+          sentences[i].push(word);
         }
 
       } else if (prevEnd >= 0 && dp[prevEnd]) {
@@ -37,11 +42,14 @@ function wordBreak(s: string, wordDict: string[]): boolean {
 
         if (matches) {
           dp[i] = true;
+          for (const prevSentence of sentences[prevEnd]) {
+            sentences[i].push(`${prevSentence} ${word}`);
+          }
         }
       }
     }
   }
 
-  const lastIndex = dp.length - 1;
-  return dp[lastIndex];
+  const lastIndex = sentences.length - 1;
+  return sentences[lastIndex];
 };
