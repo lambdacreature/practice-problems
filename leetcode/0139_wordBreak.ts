@@ -4,28 +4,30 @@
 function wordBreak(s: string, wordDict: string[]): boolean {
   // dp[i] is true if s[0..i] can be segmented
   const dp: boolean[] = [];
+  for (const _ of s) {
+    dp.push(false);
+  }
+
+  // handle base cases
+  for (const word of wordDict) {
+    let matches = true;
+
+    for (let j = 0; j < word.length; j++) {
+      if (s[j] != word[j]) {
+        matches = false;
+        break;
+      }
+    }
+
+    if (matches) {
+      dp[word.length-1] = true;
+    }
+  }
 
   for (let i = 0; i < s.length; i++) {
-    dp.push(false);
-
     for (const word of wordDict) {
       const prevEnd = i - word.length;
-      if (prevEnd == -1) {
-        // possible base case
-        let matches = true;
-
-        for (let j = 0; j < word.length; j++) {
-          if (s[j] != word[j]) {
-            matches = false;
-            break;
-          }
-        }
-
-        if (matches) {
-          dp[i] = true;
-        }
-
-      } else if (prevEnd >= 0 && dp[prevEnd]) {
+      if (prevEnd >= 0 && dp[prevEnd]) {
         let matches = true;
 
         for (let j = 0; j < word.length; j++) {
@@ -37,6 +39,7 @@ function wordBreak(s: string, wordDict: string[]): boolean {
 
         if (matches) {
           dp[i] = true;
+          break;
         }
       }
     }
