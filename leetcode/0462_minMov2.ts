@@ -1,0 +1,48 @@
+// problem: https://leetcode.com/problems/minimum-moves-to-equal-array-elements-ii/
+// solver:  https://github.com/lambdacreature/
+
+function minMoves2(nums: number[]): number {
+  const INF = 1000000001;
+
+  nums.sort((a, b) => a - b);
+
+  const prefixSum: number[] = [ nums[0] ];
+  for (let i = 1; i < nums.length; i++) {
+    prefixSum.push(prefixSum[i-1] + nums[i]);
+  }
+
+  const queries = nums;
+  let minOps = INF;
+  for (const query of queries) {
+    let low = 0;
+    let high = nums.length-1;
+    let lowerBound = nums.length;
+
+    while (low <= high) {
+      const mid = low + Math.floor((high-low)/2);
+
+      if (nums[mid] >= query) {
+        lowerBound = mid;
+        high = mid-1;
+      } else {
+        low = mid+1;
+      }
+    }
+
+    let left = 0;
+    if (lowerBound > 0) {
+      const sum = prefixSum[lowerBound-1];
+      const elementCount = lowerBound;
+      left = query * elementCount - sum;
+    }
+
+    let right = 0;
+    const sum = prefixSum[nums.length-1] - (lowerBound === 0 ? 0 : prefixSum[lowerBound-1]);
+    const elementCount = nums.length - lowerBound;
+    right = sum - query * elementCount;
+
+    minOps = Math.min(minOps, left+right);
+  }
+
+  return minOps;
+};
