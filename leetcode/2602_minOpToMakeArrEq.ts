@@ -2,7 +2,6 @@
 // solver:  https://github.com/lambdacreature/
 
 function minOperations(nums: number[], queries: number[]): number[] {
-  // each entry in the answer array is
   const answer: number[] = [];
 
   nums.sort((a, b) => a - b);
@@ -36,11 +35,9 @@ function minOperations(nums: number[], queries: number[]): number[] {
     }
 
     let right = 0;
-    if (lowerBound < nums.length) {
-      const sum = prefixSum[nums.length-1] - (lowerBound === 0 ? 0 : prefixSum[lowerBound-1]);
-      const elementCount = nums.length - lowerBound;
-      right = sum - query * elementCount;
-    }
+    const sum = prefixSum[nums.length-1] - (lowerBound === 0 ? 0 : prefixSum[lowerBound-1]);
+    const elementCount = nums.length - lowerBound;
+    right = sum - query * elementCount;
 
     answer.push(left+right);
   }
