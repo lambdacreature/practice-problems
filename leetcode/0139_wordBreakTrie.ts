@@ -3,12 +3,14 @@
 
 type Trie = {
   terminates: boolean;
-  links: Map<string, Trie>;
+  links: Array<Trie | undefined>;
 }
 
 const trieHas = (trie: Trie, target: string, start: number, len: number): boolean => {
+  const firstCode = 'a'.charCodeAt(0);
   for (let i = start; i < start + len; i++) {
-    const nextNode = trie.links.get(target[i]);
+    const ithCode = target.charCodeAt(i);
+    const nextNode = trie.links[ithCode - firstCode];
     if (nextNode === undefined) {
       return false;
     }
@@ -19,15 +21,18 @@ const trieHas = (trie: Trie, target: string, start: number, len: number): boolea
 }
 
 const trieAdd = (trie: Trie, target: string): void => {
+  const firstCode = 'a'.charCodeAt(0);
   for (let i = 0; i < target.length; i++) {
-    const nextNode = trie.links.get(target[i]);
+    const ithCode = target.charCodeAt(i);
+    const nextNode = trie.links[ithCode - firstCode];
     if (nextNode === undefined) {
       for (let j = i; j < target.length; j++) {
+        const jthCode = target.charCodeAt(j);
         const newNode = {
           terminates: false,
-          links: new Map(),
+          links: Array(26),
         }
-        trie.links.set(target[j], newNode);
+        trie.links[jthCode - firstCode] = newNode;
         trie = newNode;
       }
       break;
@@ -48,7 +53,7 @@ function wordBreak(s: string, wordDict: string[]): boolean {
 
   const trie: Trie = {
     terminates: false,
-    links: new Map(),
+    links: Array(26),
   };
 
   // fill that trie
