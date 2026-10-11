@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+
+mods = {
+    int(1e9+9): [
+        31, 53,
+    ],
+    int(1e9+7): [
+        31, 53,
+    ]
+}
+
+for m, bases in mods.items():
+    print('m =', m)
+    for p in bases:
+        print(f'\tp = {p}, inv(p) mod m = {pow(p, m-2, m)}')
